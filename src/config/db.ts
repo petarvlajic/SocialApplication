@@ -1,29 +1,10 @@
+const mongoose = require('mongoose');
+const uri = "mongodb+srv://petar:petar123@prviklaster.odhig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-import { MongoClient } from 'mongodb';
+const connectDB = async () => {
+  const conn = await mongoose.connect(uri);
 
-async function main() {
-  const uri =
-    "mongodb+srv://petar:VC4cUfwuNlWm4jHv@socialapp.40sdc.mongodb.net/SocialApp?retryWrites=true&w=majority";
-
-  const client = new MongoClient(uri);
-
-  try {
-    // Connect to the MongoDB cluster
-    await client.connect();
-    // Make the appropriate DB calls
-    await listDatabases(client);
-
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-}
-
-async function listDatabases(client){
-   let databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+  console.log(`MongoDB connected: ${conn.connection.host}`);
 };
 
-export default main
+module.exports = connectDB;

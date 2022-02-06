@@ -1,19 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
-import main from './config/db'
+const connectDB = require('./config/db')
 
 const app = express();
 const port = 3000;
 
+connectDB();
+
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
 
+app.use(express.json())
+
 // Test route file
-const test = require("./routes/test");
+const auth = require("./routes/auth");
 
-main();
 
-app.use("/test", test);
+app.use("/auth", auth);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
