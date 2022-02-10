@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -44,6 +46,9 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+
+
+  
 });
 
 module.exports = mongoose.model("User", UserSchema);
